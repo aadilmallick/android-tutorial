@@ -37,6 +37,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -67,8 +68,6 @@ class MainActivity : ComponentActivity() {
 
     private val colorViewModel by viewModels<ColorViewModel>()
     private val imageViewModel by viewModels<ImageViewModel>()
-    private val airplaneModeReceiver = AirplaneModeReceiver()
-    private val customEventReceiver = CustomEventReceiver()
     private val uriModel = UriModel(this)
     private val permissionsModel = PermissionsModel(this)
     private val workManager = WorkManager.getInstance(this)
@@ -108,24 +107,24 @@ class MainActivity : ComponentActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        unregisterReceiver(airplaneModeReceiver)
-        unregisterReceiver(customEventReceiver)
+//        unregisterReceiver(airplaneModeReceiver)
+//        unregisterReceiver(customEventReceiver)
     }
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(
-                    android.Manifest.permission.POST_NOTIFICATIONS,
-                    android.Manifest.permission.FOREGROUND_SERVICE
-                ),
-                0
-            )
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+//            ActivityCompat.requestPermissions(
+//                this,
+//                arrayOf(
+//                    android.Manifest.permission.POST_NOTIFICATIONS,
+//                    android.Manifest.permission.FOREGROUND_SERVICE
+//                ),
+//                0
+//            )
+//        }
 
 //        // this only works for API 33
 //        ActivityCompat.requestPermissions(
@@ -134,8 +133,8 @@ class MainActivity : ComponentActivity() {
 //            0
 //        )
 
-        registerReceiver(airplaneModeReceiver, IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED))
-        registerReceiver(customEventReceiver, IntentFilter("CUSTOM_EVENT"))
+//        registerReceiver(airplaneModeReceiver, IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED))
+//        registerReceiver(customEventReceiver, IntentFilter("CUSTOM_EVENT"))
 
         setContent {
             MyApplicationTheme {
@@ -151,9 +150,9 @@ class MainActivity : ComponentActivity() {
 //                        ColorChangeButton()
 //                        CustomBroadcastButton()
 //                        ImagePickerButton()
-                        StartServiceButton()
-                        StopServiceButton()
-                        RequestPermissionsButton()
+//                        StartServiceButton()
+//                        StopServiceButton()
+//                        RequestPermissionsButton()
                     }
                 }
             }
@@ -195,14 +194,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    @Composable
-    fun CustomBroadcastButton() {
-        Button(onClick = {
-            sendBroadcast(Intent("CUSTOM_EVENT"))
-        }) {
-            Text(text = "Launch custom event")
-        }
-    }
+
 
     @Composable
     fun ImagePickerButton() {
@@ -253,9 +245,12 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     fun NavigationButton() {
+        val context = LocalContext.current
         Button(
             onClick = {
-                navigateToSecondActivity()
+               Intent(context, NotificationsActivity::class.java).also {
+                   startActivity(it)
+               }
             },
         ) {
             Text(text = "click me to navigate")

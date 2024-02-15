@@ -10,6 +10,12 @@ object NotificationsGlobalObject {
             getNotificationId(),
             "Alarm Manager Practice Notifications"
         )
+    val repeatingNotificationsModel =
+        NotificationsModelV2(
+            "repeat-noti-practice",
+            getNotificationId(),
+            "Repeating Notifications Practice"
+        )
     private fun getNotificationId(): Int {
         return NOTIFICATION_ID++
     }

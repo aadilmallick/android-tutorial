@@ -2,8 +2,36 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="app">
+      <entry key="CameraPractice">
         <State />
+      </entry>
+      <entry key="ComposePractice">
+        <State />
+      </entry>
+      <entry key="NavApp">
+        <State />
+      </entry>
+      <entry key="NotificationRepeating">
+        <State />
+      </entry>
+      <entry key="ProgressBarPractice">
+        <State />
+      </entry>
+      <entry key="app">
+        <State>
+          <targetSelectedWithDropDown>
+            <Target>
+              <type value="QUICK_BOOT_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="C:\Users\Waadl\.android\avd\Pixel_3a_API_34.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </targetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-02-23T13:24:56.291126Z" />
+        </State>
       </entry>
     </value>
   </component>
